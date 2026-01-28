@@ -1,5 +1,5 @@
 /* USER CODE BEGIN Header */
-/**
+/** 12341
   ******************************************************************************
   * @file           : main.c
   * @brief          : Main program body
@@ -371,9 +371,6 @@ int main(void)
 	        LCD_PUTS(lcd_buf);
 
 	        LCD_DrawGauge(dist); // 오타 수정: wdist -> dist
-
-	        /* --- 안전 장치(자동 멈춤) 로직 제거됨 --- */
-	        // 이제 dist 값과 상관없이 키보드 입력에 따라 움직입니다.
 
 	        // 3. 일반 키보드 제어
 	        status = HAL_UART_Receive(&huart2, &rx_data, 1, 10);
@@ -841,7 +838,7 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, LD2_Pin|TRIG2_Pin|LFB_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, LD2_Pin|TRIG2_Pin|LBF_Pin|LFB_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, LBB_Pin|LFF_Pin|RFF_Pin|RFB_Pin
@@ -862,8 +859,8 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(ECHO2_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : LD2_Pin TRIG2_Pin LFB_Pin */
-  GPIO_InitStruct.Pin = LD2_Pin|TRIG2_Pin|LFB_Pin;
+  /*Configure GPIO pins : LD2_Pin TRIG2_Pin LBF_Pin LFB_Pin */
+  GPIO_InitStruct.Pin = LD2_Pin|TRIG2_Pin|LBF_Pin|LFB_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -890,12 +887,6 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
-
-  /*Configure GPIO pin : LBF_Pin */
-  GPIO_InitStruct.Pin = LBF_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(LBF_GPIO_Port, &GPIO_InitStruct);
 
   /* EXTI interrupt init*/
   HAL_NVIC_SetPriority(EXTI15_10_IRQn, 0, 0);
